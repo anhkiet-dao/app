@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tra cứu hóa đơn</title>
+    <link rel="stylesheet" href="search.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Tra cứu hóa đơn</h2>
+
+      <div class="traCuu">
+        <input
+          type="text"
+          id="soHoaDonInput"
+          placeholder="Nhập số hóa đơn..."
+        />
+        <button id="searchBtn">Tìm kiếm</button>
+      </div>
+
+      <p id="statusMessage"></p>
+
+      <div id="invoiceInfo"></div>
+
+      <table id="sanPhamTable" style="display: none">
+        <thead>
+          <tr>
+            <th>Mã</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>SL</th>
+            <th>Tổng Giá</th>
+            <th>Giảm Giá</th>
+            <th>Thanh toán</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script type="module" src="search.js"></script>
+  </body>
+</html>
