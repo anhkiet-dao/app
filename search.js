@@ -8,7 +8,6 @@ import {
   set,
 } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
 
-// Cấu hình Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCOsWpn50GmILkdfGoHluQ8SFIN3tIUDtE",
   authDomain: "nt131p22.firebaseapp.com",
@@ -21,7 +20,6 @@ const firebaseConfig = {
   measurementId: "G-QVQ8RGM1J1",
 };
 
-// Khởi tạo Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
@@ -67,29 +65,34 @@ async function searchByInvoiceNumber(soHoaDon) {
         row.insertCell(6).textContent = item.thanhToan.toLocaleString();
       });
 
-      // Hiển thị thông tin số hóa đơn và thời gian
       document.getElementById("invoiceInfo").innerHTML = `
         <strong>Số Hóa Đơn:</strong> ${foundOrder.soHoaDon} <br>
         <strong>Thời Gian:</strong> ${foundOrder.thoiGian} <br>
         <strong>Tổng tiền: </strong> ${foundOrder.tongTien.toLocaleString()} VND
       `;
 
-      // Hiển thị bảng
       document.getElementById("sanPhamTable").style.display = "table";
     } else {
-      // Nếu không tìm thấy hóa đơn, cập nhật UI rõ ràng
       document.getElementById("invoiceInfo").innerHTML =
         "<p style='color: red; font-weight: bold;'>Không tìm thấy hóa đơn với số này.</p>";
 
       document.getElementById("sanPhamTable").style.display = "none";
-      document.getElementById("tongThanhToan").innerText = ""; // Ẩn tổng thanh toán
+      document.getElementById("tongThanhToan").innerText = "";
     }
   } catch (error) {
     console.error("Lỗi khi tìm kiếm hóa đơn:", error);
   }
 }
 
-// Lắng nghe sự kiện khi người dùng nhấn nút tìm kiếm
+function showNotification(message) {
+  const notification = document.getElementById("notification");
+  notification.textContent = message;
+  notification.style.display = "block";
+
+  const newNotification = notification.cloneNode(true);
+  notification.parentNode.replaceChild(newNotification, notification);
+}
+
 document.getElementById("searchBtn").addEventListener("click", () => {
   const soHoaDonInput = document.getElementById("soHoaDonInput");
   if (soHoaDonInput) {
@@ -97,7 +100,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
     if (soHoaDonValue) {
       searchByInvoiceNumber(soHoaDonValue);
     } else {
-      alert("Vui lòng nhập số hóa đơn.");
+      showNotification("Vui lòng nhập số hóa đơn.");
     }
   } else {
     console.error("Không tìm thấy phần tử 'soHoaDonInput'...");
